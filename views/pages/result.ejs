@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>High & Low</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Result</h1>
+        <p>Current Card: <%= currentCard %>
+        </p>
+        <p>Next Card: <%= nextCard %>
+        </p>
+        <p>Result: <%= result %>
+        </p>
+        <% if (result==='win' ) { %>
+            <p>あたり！ 持金に<%= bet %>追加します。</p>
+            <% } else if (result==='lose' ) { %>
+                <p>はずれ... 持金から<%= bet %>引きます。</p>
+                <% } else { %>
+                    <p>引き分け</p>
+                    <% } %>
+                        <form action="/" method="get">
+                            <input type="hidden" name="balance" value="<%= balance %>">
+                            <button type="submit">Deal Again</button>
+                        </form>
+                        <p>持金: <%= balance %>
+                        </p>
+    </div>
+</body>
+
+</html>

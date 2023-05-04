@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>High & Low</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>High & Low</h1>
+        <h2>Next Cardの数字がCurrent Cardより高いか低いか予想しよう！</h2>
+        <p>カードのランクが次にHighになるかLowになるか予想して、ベットしてください。<br>ベット金額はテキストエリア欄に入力してください。</p>
+        <p>Current Card: <%= currentCard %>
+        </p>
+        <form action="/result" method="post">
+            <input type="hidden" name="currentCard" value="<%= currentCard %>">
+            <input type="hidden" name="balance" value="<%= balance %>">
+            <input type="text" name="bet" id="bet-amount" placeholder="10" pattern="\d+" title="半角数字で入力してください">
+            <button type="submit" name="action" value="high" onclick="validateBet(event)">High</button>
+            <button type="submit" name="action" value="low" onclick="validateBet(event)">Low</button>
+        </form>
+        <button type="button" onclick="autoFillBetAmount()">全て掛ける</button>
+        <p id="balance" data-balance="<%= balance %>">現在の持金: <%= balance %>
+        </p>
+    </div>
+</body>
+
+<script>
+    function autoFillBetAmount() {
+        var betAmountInput = document.getElementById("bet-amount");
+        betAmountInput.value = "<%= balance %>";
+    }
+
+    function validateBet(event) {
+        const balance = "<%= balance %>";
+        const bet = Number(document.getElementById('bet-amount').value);
+        if (bet > balance) {
+            alert('ベット金額が持金より多いです！');
+            event.preventDefault();
+        }
+    }
+</script>
+
+</html>

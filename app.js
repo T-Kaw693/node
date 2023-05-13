@@ -29,13 +29,13 @@ app.post('/result', (req, res) => {
     const result = compareCards(currentCard, nextCard, action, bet);
     let balance;
     if (result === 'win') {
-        balance = req.body.balance ? Number(req.body.balance) + bet : 100 + bet;
+        balance = Number(req.body.balance) + bet;
         res.render('pages/result', { currentCard, nextCard, result, bet, balance });
     } else if (result === 'draw') {
         balance = Number(req.body.balance);
         res.render('pages/result', { currentCard, nextCard, result: 'draw', bet, balance });
     } else {
-        balance = req.body.balance ? Number(req.body.balance) - bet : 100 - bet;
+        balance = Number(req.body.balance) - bet;
         res.render('pages/result', { currentCard, nextCard, result: 'lose', bet, balance });
     }
 });
